@@ -1,0 +1,29 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "description": "Authenticate users so they can use the DataUnion SDK",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DataUnion-app/authentication.git"
+  },
+  "keywords": [
+    "dataunion",
+    "web3",
+    "authentication",
+    "authenticate",
+    "sdk",
+    "data",
+    "economy",
+    "data"
+  ],
+  "author": "DataUnion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DataUnion-app/authentication/issues"
+  },
+  "homepage": "https://github.com/DataUnion-app/authentication#readme"
+}
