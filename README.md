@@ -1,11 +1,5 @@
 # @dataunion/authentication
 
-- [Introduction](#introduction)
-- [Get Started](#get-started)
-- [All Functions](#all-functions)
-- [Pull Requests](#pull-requests)
-
----
 ---
 
 # Introduction
@@ -17,6 +11,12 @@ Click here to [get started](#pull-requests) with our examples in React and Vanil
 If you want to add more examples (i.e. Angular, Vue, React Native) please create a [pull request](#pull-requests).
 
 ---
+
+- [Introduction](#introduction)
+- [Get Started](#get-started)
+- [All Functions](#all-functions)
+- [Pull Requests](#pull-requests)
+
 ---
 
 # Get Started 
@@ -49,7 +49,6 @@ Inject web3 into your project and then inject @dataunion-authentication. Ask you
 To test that authentication has succeeded, use a DataUnion endpoint that requires authentication. Here we use [`/upload-file`]().
 
 ---
----
 
 # All Functions
 
@@ -64,13 +63,11 @@ To test that authentication has succeeded, use a DataUnion endpoint that require
 - `refresh()`
 
 ---
----
 
 # Pull Requests 
 
 If you want to add new examples (i.e. injecting the library into other JavaScript frameworks), we would strongly appreciate that. Feel free to open a pull request and explain briefly what your example does. We will add you to the credits section if you wish.
 
----
 ---
 
 # Credits
