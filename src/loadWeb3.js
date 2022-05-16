@@ -28,6 +28,6 @@ class DataUnionWeb3 {
     }
 }
 
-var duWeb3 = new DataUnionWeb3()
-export default duWeb3;
+var duWeb3Injecter = new DataUnionWeb3()
+export default duWeb3Injecter;
 export { DataUnionWeb3 };

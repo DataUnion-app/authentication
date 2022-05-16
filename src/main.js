@@ -1,9 +1,8 @@
 import 'web3';
-import apiCalls from './api';
-import injectWeb3 from './loadWeb3';
-// User Functions
+import ApiCalls from './api';
+import duWeb3Injecter, { DataUnionWeb3 } from './loadWeb3';
 
-const apiCallsInstance = new apiCalls();
+const apiCallsInstance = new ApiCalls();
 
 class DataUnionAuth {
     constructor() {}
@@ -115,4 +114,4 @@ class DataUnionAuth {
 
 const duAuth = new DataUnionAuth()
 export default duAuth;
-export { DataUnionAuth }
+export { DataUnionAuth, DataUnionWeb3, ApiCalls, duWeb3Injecter }

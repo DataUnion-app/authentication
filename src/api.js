@@ -3,7 +3,7 @@
     // Figure out how to test and deploy the library.
 
 // Routes to the production database at https://crab.dataunion.app/ by default.
-class apiCalls {
+class ApiCalls {
     constructor(
         customBackendUrl='',
     ) {
@@ -132,4 +132,4 @@ class apiCalls {
 
 }
 
-export default apiCalls;
+export default ApiCalls;
