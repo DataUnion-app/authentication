@@ -1,4 +1,4 @@
-# @dataunion-authentication
+# @dataunion/authentication
 
 - [Introduction](#introduction)
 - [Get Started](#get-started)
