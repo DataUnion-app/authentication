@@ -2,15 +2,15 @@
 
 Expanded, detailed documentation of @dataunion/authenticate. 🌸 If you have further questions do not hesitate to join our [Discord](https://discord.gg/4c8puCNqrR) and [Telegram](https://t.me/dataunionapp) and reach out to the technical team, we are happy to help!
 
-- [All Classes](#all-classes)
-- [DataUnionAuth() Functions](#dataunionauth-functions)
-- [ApiCalls() Functions](#apicalls-functions)
-- [DataUnionWeb3() Functions](#dataunionweb3-functions)
-- [Advanced Authentication](#advanced-authentication)
+- [All Classes 💥](#all-classes)
+- [DataUnionAuth() Functions 🦚](#dataunionauth-functions)
+- [ApiCalls() Functions 🐝](#apicalls-functions)
+- [DataUnionWeb3() Functions 🌻](#dataunionweb3-functions)
+- [Advanced Authentication 💡](#advanced-authentication)
 
 ---
 
-## All Classes
+## All Classes 💥
 
 ```javascript 
 import { DataUnionAuth, DataUnionWeb3, ApiCalls } from '@dataunion/authentication'
@@ -31,7 +31,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 
 ---
 
-## DataUnionAuth() Functions
+## DataUnionAuth() Functions 🦚
 
 @dataunion/authentication contains the following functions under `DataUnionAuth()`, for controlling user log in:
 
@@ -54,7 +54,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 
 ---
 
-## ApiCalls() Functions
+## ApiCalls() Functions 🐝
 
 @dataunion/authentication contains the following functions under `ApiCalls()`, for calling authentication APIs directly. All of these functions accept a parameter called `logErrors` which determines whether or not the errors are console logged.
 
@@ -75,7 +75,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 
 ---
 
-## DataUnionWeb3() Functions
+## DataUnionWeb3() Functions 🌻
 
 - `duWeb3.injectWeb3()` - Injects web3.
 
@@ -83,7 +83,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 
 ---
 
-## Advanced Authentication
+## Advanced Authentication 💡
 
 As shown in the quick tutorial, you only need to use `duAuth.fullLogin()` and `duAuth.refresh()` for the simplest log in. 
 
