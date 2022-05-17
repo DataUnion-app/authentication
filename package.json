@@ -1,5 +1,5 @@
 {
-  "name": "authentication",
+  "name": "@dataunion/authentication",
   "version": "1.0.0",
   "description": "Authenticate users so they can use the DataUnion SDK",
   "main": "main.js",
