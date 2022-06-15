@@ -1,7 +1,28 @@
 class DataUnionWeb3 {
-    constructor() {}
+    constructor() {
+        this.account = null;
+        this.provider = null;
+    }
+
+    authenticate(account) {
+        this.account = account
+    }
+
+    async initWeb3() {
+        if (window.ethereum) {
+            this.provider = await new Web3(window.ethereum);
+            console.log(`inited web3 in modern browser`);
+            return Promise.resolve('initialized');
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+            this.provider = await new Web3(window.web3.currentProvider);
+            console.log(`inited web3 in legacy browser`);
+            return Promise.resolve('initialized');
+        }
+    }
     
-    injectWeb3() {
+    async injectWeb3() {
         window.addEventListener('load', async () => {
             // Modern dapp browsers...
             if (window.ethereum) {
@@ -10,6 +31,7 @@ class DataUnionWeb3 {
                     await ethereum.enable();
                     console.log(`[accounts] = ${window.web3.eth.accounts[0]}`);
                     console.log(`[sign] = ${window.web3.eth.sign()}`);
+                    this.account = window.web3.eth.accounts();
                 } catch (error) {
                     console.log(error)
                 }
@@ -26,8 +48,29 @@ class DataUnionWeb3 {
             }
         });
     }
+
+    async checkForAddress() {
+        if (window.ethereum) {
+            return window.ethereum.enable().then(result => {
+                if (result !== undefined) {
+                    this.authenticate(result[0])
+                    return Promise.resolve(result[0])
+                }
+                window.web3.eth.getAccounts((error, result) => {
+                    if (error) {
+                        return Promise.reject(null);
+                    } else {
+                        this.authenticate(result[0])
+                        return Promise.resolve(result[0])
+                    }
+                });
+            });
+        } else {
+            return Promise.reject('Your browser needs to have Web3')
+        }
+    }
 }
 
-var duWeb3Injecter = new DataUnionWeb3()
+const duWeb3Injecter = new DataUnionWeb3()
 export default duWeb3Injecter;
-export { DataUnionWeb3 };
+export { DataUnionWeb3, duWeb3Injecter };

@@ -85,7 +85,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 
 ## Advanced Authentication 💡
 
-As shown in the quick tutorial, you only need to use `duAuth.fullLogin()` and `duAuth.refresh()` for the simplest log in. 
+As shown in the quick tutorial on the home page, you only need to use `duWeb3.injectWeb3()`, `duAuth.fullLogin()` and `duAuth.refresh()` for the simplest log in. 
 
 However, if you want more advanced control over your user authentication -- for example, if you want to have loading bars showing your users what stage of the authentication they're at -- you can do the process in more steps.
 
@@ -106,7 +106,7 @@ setTimeout(() => {
 }, 900000)  
 ```
 
-There are four things we need to worry about: getting a `nonce`, getting a `signature`, getting `tokens`, and then `refreshing tokens` every 15 minutes so that the user doesn't get logged out.
+There are four things we need to worry about: getting a `nonce`, getting a `signature`, getting `tokens`, and then `refreshing tokens` every 15 minutes so that the user doesn't get logged out. Note that if you are using a custom backend url, your refresh time may be different, but the default should be 15 minutes or 900000 milliseconds.
 
 1. Getting a nonce: 
 

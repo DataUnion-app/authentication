@@ -132,4 +132,6 @@ class ApiCalls {
 
 }
 
+const apiCallsDefault = new ApiCalls();
+export { ApiCalls, apiCallsDefault }
 export default ApiCalls;

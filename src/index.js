@@ -1,6 +1,6 @@
-import 'web3';
 import ApiCalls from './api';
 import duWeb3Injecter, { DataUnionWeb3 } from './loadWeb3';
+import authWithWeb3Library, { Auth } from './auth';
 
 const apiCallsInstance = new ApiCalls();
 
@@ -11,20 +11,22 @@ class DataUnionAuth {
 
     /// Gets nonce for a user account that doesn't already exist, and records this account in the Crab database.
     /// PARAMS:
-        /// [logErrors] - boolean. Logs errors if true.
+        /// [ethAddress] - String
     async registerNewAddress( 
         ethAddress
     ) {
-        apiCallsInstance.register(ethAddress, this.logErrors)
+        var nonce = await apiCallsInstance.register(ethAddress, this.logErrors);
+        return nonce;
     }
 
     /// Gets nonce for a user account that already exists.
     /// PARAMS:
-        /// [logErrors] - boolean. Logs errors if true.
+        /// [ethAddress] - String
     async getNonceForExistingAddress(
         ethAddress
     ) {
-        apiCallsInstance.getNonce(ethAddress, this.logErrors)
+        var nonce = await apiCallsInstance.getNonce(ethAddress, this.logErrors);
+        return nonce;
     }
 
     /// Gets nonce regardless of whether user account exists or not. 
@@ -32,7 +34,6 @@ class DataUnionAuth {
     /// PARAMS:
         /// [ethAddress] - String. The nonce of the account that logged in.
         /// [registerFirst] - boolean. If true, try `/register` first. If false, try `/get-nonce` first. 
-        /// [logErrors] - boolean. Logs errors if true.
     async registerOrGetNonceAuto(
         ethAddress,
         registerFirst=false
@@ -68,14 +69,23 @@ class DataUnionAuth {
     /// Gets signature  
     /// PARAMS:
         /// [ethAddress] - String
+        /// [nonce] - Number
     async getSignature(ethAddress, nonce) {
-        apiCallsInstance.sign(ethAddress, nonce, this.logErrors);
+        var signature = await apiCallsInstance.sign(ethAddress, nonce, this.logErrors);
+        return signature;
     }
 
+    /// Gets JWT Token
+    /// PARAMS:
+        /// [signature] - String
     async getJWTToken(signature) {
-        apiCallsInstance.login(signature, this.logErrors)
+        var tokens = await apiCallsInstance.login(signature, this.logErrors)
+        return tokens;
     }
 
+    /// Completes full login process
+    /// PARAMS:
+        /// [ethAddress] - String
     async fullLogin(
         ethAddress
     ) {
@@ -102,13 +112,17 @@ class DataUnionAuth {
         })
     }
 
+    /// Refreshes JWT Tokens
+    /// PARAMS:
+        /// [refreshToken] - String
     async refresh(
         refreshToken
     ) {
-        apiCallsInstance.refresh(refreshToken, this.logErrors)
+        var newTokens = await apiCallsInstance.refresh(refreshToken, this.logErrors)
+        return newTokens;
     }
 }
 
 const duAuth = new DataUnionAuth()
 export default duAuth;
-export { DataUnionAuth, DataUnionWeb3, ApiCalls, duWeb3Injecter }
+export { DataUnionAuth, DataUnionWeb3, ApiCalls, Auth, duWeb3Injecter, authWithWeb3Library }
