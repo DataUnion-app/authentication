@@ -1,10 +1,11 @@
+import Web3 from 'web3/dist/web3.min';
 // TODO:
 // Edit docs. Move the lengthy part to Advanced.
 // Figure out how to test and deploy the library.
 // Routes to the production database at https://crab.dataunion.app/ by default.
 class ApiCalls {
   constructor(customBackendUrl = '') {
-    this.backendUrl = customBackendUrl != undefined && customBackendUrl != '' ? backendUrl : 'https://crab.dataunion.app/';
+    this.backendUrl = customBackendUrl != undefined && customBackendUrl != '' ? backendUrl : 'https://crab.dataunion.app';
   } 
   
   // [Registers user in the target backendUrl and gets nonce, using '/register' API from DataUnion SDK]
@@ -49,10 +50,16 @@ class ApiCalls {
 
 
   async sign(ethAddress, nonce, logErrors = false) {
+    console.log(ethAddress);
+    var nonceString = nonce.toString();
     return new Promise((resolve, reject) => {
       if (window.web3) {
-        const web3Provider = new Web3(window.ethereum);
-        window.web3.eth.personal.sign(web3.utils.utf8ToHex(nonce), ethAddress, '', (err, signed) => {
+        const web3 = new Web3(Web3.givenProvider || `ws://${this.backendUrl}`);
+        web3.eth.personal.sign(
+          web3.utils.utf8ToHex(nonceString), 
+          ethAddress, 
+          '', 
+          (err, signed) => {
           if (err) {
             return reject(err);
           } else {
@@ -70,12 +77,13 @@ class ApiCalls {
   } /// [Logs user in using signature gained from the sign() function]
 
 
-  async login(ethAddress, signature, logErrors = false) {
+  async login(ethAddress, signature, logErrors=false) {
     const obj = {
       "public_address": ethAddress,
       "signature": signature
     };
     const loginObject = JSON.stringify(obj);
+    
     const loginResult = await fetch(`${this.backendUrl}/login`, {
       method: 'POST',
       body: loginObject

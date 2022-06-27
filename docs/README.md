@@ -63,7 +63,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 - `apiCalls.getNonce(ethAddress, logErrors=false)` - Calls `/get-nonce` API. Returns a `nonce`.
 
 #### `signature` returners:
-- `apiCalls.sign(ethAddress, nonce, logErrors=false)` - Calls `window.web3.eth.personal` API. Requires that `window.web3` is initialized; please make sure you've injected web3 into your browser either manually or through `duWeb3.injectWeb3()`. Returns a `signature`.
+- `apiCalls.sign(ethAddress, nonce, logErrors=false)` - Calls `window.web3.eth.personal` API. Requires that `window.web3` is initialized; please make sure you've injected web3 into your browser either manually or through `duWeb3.enableEthereumAndGetAddress()`. Returns a `signature`.
 
 #### `tokens` returners:
 - `apiCalls.login(ethAddress, signature, logErrors=false)` - Calls `/login` API. Returns `tokens`.
@@ -77,7 +77,7 @@ const duWeb3 = new DataUnionWeb3();   // Contains Web3 initializers
 
 ## DataUnionWeb3() Functions 🌻
 
-- `duWeb3.injectWeb3()` - Injects web3.
+- `duWeb3.enableEthereumAndGetAddress()` - Injects web3 through the `window.ethereum` provider, returns checksum address if the user is logged in with Metamask.
 
 [See source code](https://github.com/DataUnion-app/authentication/pulls/src/loadWeb3.js)
 
@@ -160,8 +160,7 @@ var tokens = await duAuth.getJWTToken(signature);
 ```javascript
 import duAuth, { duWeb3Injecter } from '@dataunion/authentication'  // duAuth is instance of DataUnionAuth()
 
-duWeb3Injecter.injectWeb3();
-const ethAddress = window.web3.eth.accounts[0];
+const ethAddress = await duWeb3Injecter.enableEthereumAndGetAddress();
 
 ///
 // getting tokens the slow way...

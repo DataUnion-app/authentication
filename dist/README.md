@@ -32,22 +32,23 @@ Step 3 is setting a refresh cycle so that the user's token never expires, which 
 The following code is all that's needed to log a user in:
 
 ```javascript
-import duAuth, { duWeb3Injecter } from '@dataunion/authenticate'    
+import duAuth, { duWeb3Injecter } from '@dataunion/authentication';    
 
 var accessToken;
 var refreshToken;
 
 // duWeb3Injecter is an instance of the class, 'DataUnionWeb3'
 // this function makes window.web3 defined.
-await duWeb3Injecter.injectWeb3();
+var ethAddress = await duWeb3Injecter.enableEthereumAndGetAddress();
 
 // Log the user in
 if (window.web3 != undefined) {
-    var loginTokens = await duAuth.fullLogin();
+    var loginTokens = await duAuth.fullLogin(ethAddress);
     accessToken = loginTokens.accessToken;
     refreshToken = loginTokens.refreshToken;
 }
 
+// refresh their token every 15 minutes
 setTimeout(() => {
     var newTokens = await duAuth.refresh(refreshToken);
     accessToken = newTokens.accessToken;
@@ -115,7 +116,7 @@ const duWeb3 = new DataUnionWeb3();
 
 @dataunion/authentication contains the following functions under `DataUnionWeb3()`, for initializing Web3: 
 
-- `duWeb3.injectWeb3()` - Injects web3.
+- `duWeb3.enableEthereumAndGetAddress()` - Injects web3 through the `window.ethereum` provider, returns checksum address if the user is logged in with Metamask.
 
 [See source code](https://github.com/DataUnion-app/authentication/pulls/src/loadWeb3.js)
 

@@ -29,8 +29,6 @@ class DataUnionWeb3 {
                 window.web3 = new Web3(ethereum);
                 try {
                     await ethereum.enable();
-                    console.log(`[accounts] = ${window.web3.eth.accounts[0]}`);
-                    console.log(`[sign] = ${window.web3.eth.sign()}`);
                     this.account = window.web3.eth.accounts();
                 } catch (error) {
                     console.log(error)

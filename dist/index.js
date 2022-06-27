@@ -1,5 +1,5 @@
 import ApiCalls from './api';
-import duWeb3Injecter, { DataUnionWeb3 } from './loadWeb3';
+import duWeb3Injecter, { DataUnionWeb3, Web3Provider } from './loadWeb3';
 const apiCallsInstance = new ApiCalls();
 
 class DataUnionAuth {
@@ -34,7 +34,7 @@ class DataUnionAuth {
         this.registerNewAddress(ethAddress).then(res => {
           if (res['status'] != 'not found') return resolve(res['nonce']);
         }).catch(err => {
-          if (logErrors) console.log(err);
+          if (this.logErrors) console.log(err);
           this.getNonceForExistingAddress(ethAddress).then(res => {
             if (res['status'] != 'not found') return resolve(res['nonce']);
           }).catch(err => {
@@ -69,22 +69,19 @@ class DataUnionAuth {
   /// Gets JWT Token
   /// PARAMS:
   /// [signature] - String
-  async getJWTToken(signature) {
-    var tokens = await apiCallsInstance.login(signature, this.logErrors);
+  async getJWTToken(ethAddress, signature) {
+    var tokens = await apiCallsInstance.login(ethAddress, signature, this.logErrors);
     return tokens;
   } /// Completes full login process
   /// PARAMS:
   /// [ethAddress] - String
 
 
-  async fullLogin(ethAddress) {
+  async fullLogin(ethAddress) { 
     this.registerOrGetNonceAuto(ethAddress).then(nonce => {
-      console.log(nonce);
       this.getSignature(ethAddress, nonce).then(res => {
-        console.log(`signature`);
-        console.log(res);
-        var signature = res['signature'];
-        this.getJWTToken(signature).then(res => {
+        var { ethAddress, signed } = res;
+        this.getJWTToken(ethAddress, signed).then(res => {
           Promise.resolve({
             accessToken: res['access_token'],
             refreshToken: res['refresh_token']
