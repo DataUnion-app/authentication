@@ -78,26 +78,29 @@ class DataUnionAuth {
 
 
   async fullLogin(ethAddress) { 
-    this.registerOrGetNonceAuto(ethAddress).then(nonce => {
-      this.getSignature(ethAddress, nonce).then(res => {
-        var { ethAddress, signed } = res;
-        this.getJWTToken(ethAddress, signed).then(res => {
-          Promise.resolve({
-            accessToken: res['access_token'],
-            refreshToken: res['refresh_token']
+    return new Promise((resolve, reject) => {
+      this.registerOrGetNonceAuto(ethAddress).then(nonce => {
+        this.getSignature(ethAddress, nonce).then(res => {
+          var { ethAddress, signed } = res;
+          this.getJWTToken(ethAddress, signed).then(res => {
+            return resolve({
+              ethAddress: ethAddress,
+              accessToken: res['access_token'],
+              refreshToken: res['refresh_token']
+            });
+          }).catch(err => {
+            if (this.logErrors) console.log(`[@dataunion-authentication fullLogin()] ${err}`);
+            return reject(err);
           });
         }).catch(err => {
           if (this.logErrors) console.log(`[@dataunion-authentication fullLogin()] ${err}`);
-          Promise.reject(err);
+          return reject(err);
         });
       }).catch(err => {
         if (this.logErrors) console.log(`[@dataunion-authentication fullLogin()] ${err}`);
-        Promise.reject(err);
+        return reject(err);
       });
-    }).catch(err => {
-      if (this.logErrors) console.log(`[@dataunion-authentication fullLogin()] ${err}`);
-      Promise.reject(err);
-    });
+    })
   } 
   
   /// Refreshes JWT Tokens
